@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_KEY = "YOUR_GEMINI_API_KEY"; // Replace with your actual Gemini API key
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
+// Replace with your actual Gemini API key
 
 const App = () => {
   const [messages, setMessages] = useState([
@@ -21,7 +22,8 @@ const App = () => {
 
     try {
       const response = await axios.post(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY,
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
+          API_KEY,
         {
           contents: [
             {
