@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const API_KEY = "YOUR_GEMINI_API_KEY"; // Replace with your actual Gemini API key
+
+const App = () => {
+  const [messages, setMessages] = useState([
+    { type: "bot", text: "Hi! I'm Gemini AI. Ask me anything!" },
+  ]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSend = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = { type: "user", text: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY,
+        {
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: input }],
+            },
+          ],
+        }
+      );
+
+      const botText =
+        response?.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "Sorry, I didn't understand that.";
+
+      setMessages((prev) => [...prev, { type: "bot", text: botText }]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        { type: "bot", text: "Error talking to Gemini API 😔" },
+      ]);
+      console.error(error);
+    }
+
+    setLoading(false);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") handleSend();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="chat-container">
+      <div className="chat-box">
+        <h2 className="chat-title">Gemini Chatbot 💬</h2>
+        <div className="chat-messages">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`message ${msg.type === "user" ? "user" : "bot"}`}
+            >
+              {msg.text}
+            </div>
+          ))}
+          {loading && <div className="message bot">Typing...</div>}
+        </div>
+        <div className="chat-input">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <button onClick={handleSend}>Send</button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
