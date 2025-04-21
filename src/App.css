@@ -196,7 +196,7 @@ body {
 @media (max-width: 360px) {
   .chat-box {
     height: 85vh;
-    width: 95vw; /* Increased width to occupy more screen */
+    width: 85vw; /* Increased width to occupy more screen */
     border-width: 3px;
     margin: 0 auto; /* Center it */
   }
