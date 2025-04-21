@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
-// Replace with your actual Gemini API key
+const API_KEY = "AIzaSyCmXsqJxevwxxAKULABQuOJaaMuX5mFal8"; // Replace with your actual Gemini API key
 
 const App = () => {
   const [messages, setMessages] = useState([
@@ -22,12 +21,10 @@ const App = () => {
 
     try {
       const response = await axios.post(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
-          API_KEY,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${API_KEY}`,
         {
           contents: [
             {
-              role: "user",
               parts: [{ text: input }],
             },
           ],
@@ -44,7 +41,7 @@ const App = () => {
         ...prev,
         { type: "bot", text: "Error talking to Gemini API 😔" },
       ]);
-      console.error(error);
+      console.error("Gemini API error:", error.response?.data || error.message);
     }
 
     setLoading(false);
@@ -55,9 +52,9 @@ const App = () => {
   };
 
   return (
-    <div className="chat-container">
+    <div className="chat-wrapper">
       <div className="chat-box">
-        <h2 className="chat-title">Gemini Chatbot 💬</h2>
+        <h2 className="chat-title">💬 CHAT-BOT </h2>
         <div className="chat-messages">
           {messages.map((msg, index) => (
             <div
@@ -69,15 +66,18 @@ const App = () => {
           ))}
           {loading && <div className="message bot">Typing...</div>}
         </div>
-        <div className="chat-input">
+        <div className="chat-input-container">
           <input
             type="text"
+            className="chat-input-field"
             placeholder="Type your message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <button onClick={handleSend}>Send</button>
+          <button className="chat-send-button" onClick={handleSend}>
+            Send
+          </button>
         </div>
       </div>
     </div>
