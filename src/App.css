@@ -162,6 +162,7 @@ body {
   .chat-box {
     height: 85vh;
     border-width: 4px;
+    max-width: 100%;
   }
 
   .chat-header {
