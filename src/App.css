@@ -192,3 +192,41 @@ body {
     padding: 8px 10px;
   }
 }
+@media (max-width: 360px) {
+  .chat-box {
+    height: 80vh;
+    border-width: 3px;
+  }
+
+  .chat-header {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .chat-title {
+    font-size: 0.9rem;
+  }
+
+  .chat-input-container {
+    padding: 8px;
+    gap: 6px;
+    flex-direction: column; /* Stack input and button for very narrow screens */
+  }
+
+  .chat-input-container input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.6rem;
+  }
+
+  .chat-input-container button {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.6rem;
+  }
+
+  .message {
+    font-size: 0.6rem;
+    padding: 6px 8px;
+  }
+}
