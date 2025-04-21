@@ -6,7 +6,7 @@ const API_KEY = "AIzaSyCmXsqJxevwxxAKULABQuOJaaMuX5mFal8"; // Replace with your 
 
 const App = () => {
   const [messages, setMessages] = useState([
-    { type: "bot", text: "Hi! I'm Gemini AI. Ask me anything!" },
+    { type: "bot", text: "Hi! I'm Mine-ChatBot AI. Ask me anything!" },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
