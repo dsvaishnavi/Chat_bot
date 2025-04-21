@@ -200,7 +200,7 @@ body {
 
   .chat-header {
     font-size: 0.8rem;
-    padding: 10px;
+    padding: 6px;
   }
 
   .chat-title {
@@ -208,25 +208,25 @@ body {
   }
 
   .chat-input-container {
-    padding: 8px;
-    gap: 6px;
-    flex-direction: column; /* Stack input and button for very narrow screens */
+    padding: 0;
+    gap: 4px;
+    flex-direction: column;
   }
 
   .chat-input-container input {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     font-size: 0.6rem;
   }
 
   .chat-input-container button {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     font-size: 0.6rem;
   }
 
   .message {
     font-size: 0.6rem;
-    padding: 6px 8px;
+    padding: 4px 6px;
   }
 }
