@@ -54,7 +54,7 @@ const App = () => {
   return (
     <div className="chat-wrapper">
       <div className="chat-box">
-        <h2 className="chat-title">💬 CHAT-BOT </h2>
+        <h2 className="chat-title"> 💬 MINE-CHAT 💬</h2>
         <div className="chat-messages">
           {messages.map((msg, index) => (
             <div
